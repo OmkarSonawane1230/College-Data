@@ -1,10 +1,9 @@
-//============================================================================
-// Name        : Omkar Sonawane
-// Author      : gaur
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+// ======================================================================
+// Name        : assign_7.cpp
+// Author      : Omkar Sonawane
+// Description : This program implements a basic club management system
+//               using a linked list data structure.
+// ======================================================================
 
 #include <iostream>
 #include <cstdlib>
@@ -40,17 +39,19 @@ public:
 node* club::create() {
     node *temp, *n1;
     temp = n1 = nullptr;
-    cout << "How many student data do you want to enter: " << endl;
+    cout << "How many student data do you want to enter: ";
     cin >> cnt;
+
     while (cnt > 0) {
         n1 = new node;
-        cout << "Enter the PRN number of students: " << endl;
+        cout << "Enter the PRN number of students: ";
         cin >> num;
         n1->PRN = num;
-        cout << "Enter the name of students: " << endl;
+        cout << "Enter the name of students: ";
         cin >> nm;
         strcpy(n1->name, nm);
         n1->next = nullptr;
+
         if (head == nullptr) {
             head = n1;
             temp = head;
@@ -63,11 +64,13 @@ node* club::create() {
         }
         cnt--;
     }
+    
     return head;
 }
 
 void club::display(node* head) const {
     node* temp = head;
+
     while (temp != nullptr) {
         if (temp->next == nullptr) {
             cout << "[" << temp->PRN << "|" << temp->name << "] -> NULL";
@@ -138,6 +141,7 @@ void club::insert_sect(node* head) {
     cout << "\nEnter the name for Secretary: ";
     cin >> n2->name;
     n2->next = nullptr;
+
     while (temp->next != nullptr) {
         temp = temp->next;
     }
@@ -148,23 +152,25 @@ node* club::del_president(node* head) {
     if (head == nullptr) return nullptr;
     node* temp = head;
     head = head->next;
-    delete temp;  // Use delete instead of free for C++ new
+    delete temp;
     return head;
 }
 
 node* club::del_secretary(node* head) {
     if (head == nullptr) return nullptr;
     node *temp = head, *t1 = nullptr;
+
     while (temp->next != nullptr) {
         t1 = temp;
         temp = temp->next;
     }
+
     if (t1 != nullptr) {
         t1->next = nullptr;
     } else {
         head = nullptr;
     }
-    delete temp;  // Use delete instead of free for C++ new
+    delete temp;
     return head;
 }
 
@@ -174,11 +180,12 @@ node* club::del_member(node* head) {
     int pn;
     cout << "\nEnter the PRN number of the member to delete: ";
     cin >> pn;
+
     while (temp != nullptr) {
         if (temp->next != nullptr && temp->next->PRN == pn) {
             t1 = temp->next;
             temp->next = t1->next;
-            delete t1;  // Use delete instead of free for C++ new
+            delete t1;
             cout << "\n\nMember removed successfully....!!";
             return head;
         }
@@ -188,75 +195,60 @@ node* club::del_member(node* head) {
     return head;
 }
 
+// Function to handle list operations
+void handleListOperations(club &c, node* &head, const string &divisionName) {
+    c.insert_sect(head);
+    cout << "\n\nAfter insertion of Secretary:\n";
+    c.display(head);
+    head = c.insert_president(head);
+    cout << "\n\nAfter insertion of President:\n\n";
+    c.display(head);
+    c.insert_member(head);
+    cout << "\n\nAfter insertion of Members:\n\n";
+    c.display(head);
+    head = c.del_president(head);
+    cout << "\n\nAfter deletion of President:\n\n";
+    c.display(head);
+    head = c.del_secretary(head);
+    cout << "\n\nAfter deletion of Secretary:\n\n";
+    c.display(head);
+    head = c.del_member(head);
+    cout << "\n\nAfter deletion of Member:\n\n";
+    c.display(head);
+}
+
+void processDivision(club &c, node* &head, const string &divisionName) {
+    cout << "\n\nPlease enter the student info who is a registered member.." << endl;
+    cout << "\n\nEnter the Panclub Data of " << divisionName << ":\n" << endl;
+    head = c.create();
+    cout << divisionName << " list is as follows: \n" << endl;
+    c.display(head);
+    cout << "\n\nReverse List of " << divisionName << ":\n\n";
+    c.reverse(head);
+    handleListOperations(c, head, divisionName);
+}
+
 int main() {
     club c1, c2, c3;
     node* h1 = nullptr;
     node* h2 = nullptr;
     node* h3 = nullptr;
     int ch;
-
-    cout << "\n\t!!!Group B: Assignment No:01!!!" << endl;  // prints !!!Assignment number and group!!!
+    
     do {
         cout << "\n\n1. Enter data of SE A Division:";
         cout << "\n2. Enter data of SE B Division:";
         cout << "\n3. Concatenation of Lists..";
         cout << "\nEnter your choice: ";
         cin >> ch;
+
         switch (ch) {
             case 1:
-                cout << "\n\nPlease enter the student info who is a registered member.." << endl;
-                cout << "\n\nEnter the Panclub Data of SE A Division:\n" << endl;
-                h1 = c1.create();
-                cout << "SE Comp Division A list is as follows: " << endl;
-                c1.display(h1);
-                cout << "\n\nReverse List of SE Div A:\n\n";
-                c1.reverse(h1);
-                c1.insert_sect(h1);
-                cout << "\n\nAfter insertion of Secretary:\n";
-                c1.display(h1);
-                h1 = c1.insert_president(h1);
-                cout << "\n\nAfter insertion of President:\n\n";
-                c1.display(h1);
-                c1.insert_member(h1);
-                cout << "\n\nAfter insertion of Members:\n\n";
-                c1.display(h1);
-                h1 = c1.del_president(h1);
-                cout << "\n\nAfter deletion of President:\n\n";
-                c1.display(h1);
-                h1 = c1.del_secretary(h1);
-                cout << "\n\nAfter deletion of Secretary:\n\n";
-                c1.display(h1);
-                h1 = c1.del_member(h1);
-                cout << "\n\nAfter deletion of Member:\n\n";
-                c1.display(h1);
+                processDivision(c1, h1, "SE A Division");
                 break;
 
             case 2:
-                cout << "\n\nPlease enter the student info who is a registered member.." << endl;
-                cout << "\n\nEnter the Panclub Data of SE B Division:\n" << endl;
-                h2 = c2.create();
-                cout << "SE Comp Division B list is as follows: " << endl;
-                c2.display(h2);
-                cout << "\n\nReverse List of SE Div B:\n\n";
-                c2.reverse(h2);
-                c2.insert_sect(h2);
-                cout << "\n\nAfter insertion of Secretary:\n";
-                c2.display(h2);
-                h2 = c2.insert_president(h2);
-                cout << "\n\nAfter insertion of President:\n\n";
-                c2.display(h2);
-                c2.insert_member(h2);
-                cout << "\n\nAfter insertion of Members:\n\n";
-                c2.display(h2);
-                h2 = c2.del_president(h2);
-                cout << "\n\nAfter deletion of President:\n\n";
-                c2.display(h2);
-                h2 = c2.del_secretary(h2);
-                cout << "\n\nAfter deletion of Secretary:\n\n";
-                c2.display(h2);
-                h2 = c2.del_member(h2);
-                cout << "\n\nAfter deletion of Member:\n\n";
-                c2.display(h2);
+                processDivision(c2, h2, "SE B Division");
                 break;
 
             case 3:
