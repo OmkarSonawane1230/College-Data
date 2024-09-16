@@ -6,7 +6,6 @@ Description: This program is implementation of Assignment No. 3 [Operation of ma
 
 """
 
-# Program starts
 def print_matrix(matrix):  
     print()  
     max_width = 0
