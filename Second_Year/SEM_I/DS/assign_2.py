@@ -1,7 +1,9 @@
 """
+
 Program Name: Assignment No. 2
 Author: Omkar Sonawane
 Description: This program is implementation of Assignment No. 2.
+
 """
 
 # declaration of marks variable
