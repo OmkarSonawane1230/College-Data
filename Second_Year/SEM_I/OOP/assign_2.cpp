@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 class Student {
@@ -55,13 +54,6 @@ public:
     friend istream& operator>>(istream& in, Student& s) {
         cout << "\nStudent details: ";
 
-        // in >> s.name >> s.rollNumber >> s.className >> s.division >> s.dateOfBirth
-        //    >> s.bloodGroup >> ws; // ws to consume whitespace before reading the address
-
-        // // Read the rest of the line for the address and other details
-        // getline(in, s.contactAddress, '\n'); // Read until the end of the line
-        // in >> s.telephoneNumber >> s.drivingLicenseNo;
-
         in >> ws; // Consume any leading whitespace
         in >> s.name >> s.rollNumber >> s.className >> s.division
            >> s.dateOfBirth >> s.bloodGroup >> s.contactAddress 
@@ -71,16 +63,20 @@ public:
         return in;
     }
 
+    string formatWithPadding(const string& str, int width) {
+        return str + string(width > str.length() ? width - str.length() : 0, ' ');
+    }
+
     inline void display() {
-        cout << "Name: " << name << endl;
-        cout << "Roll Number: " << rollNumber << endl;
-        cout << "Class: " << className << endl;
-        cout << "Division: " << division << endl;
-        cout << "Date of Birth: " << dateOfBirth << endl;
-        cout << "Blood Group: " << bloodGroup << endl;
-        cout << "Contact Address: " << contactAddress << endl;
-        cout << "Telephone Number: " << telephoneNumber << endl;
-        cout << "Driving License No: " << drivingLicenseNo << endl;
+        cout << formatWithPadding(to_string(rollNumber), 5)
+             << formatWithPadding(name, 10)
+             << formatWithPadding(className, 7)
+             << formatWithPadding(to_string(division), 5)
+             << formatWithPadding(dateOfBirth, 12)
+             << formatWithPadding(bloodGroup, 4)
+             << formatWithPadding(contactAddress, 14)
+             << formatWithPadding(telephoneNumber, 12)
+             << drivingLicenseNo << endl;
     }
 
     int getRollNumber() const { return rollNumber; }
@@ -108,10 +104,9 @@ public:
         delete[] students; 
     }
 
-    // Function to add a student
     void addStudent(const Student& s) {
         if (size < capacity) {
-            students[size++] = new Student(s); // allocate new Student
+            students[size++] = new Student(s);
         } else {
             cout << "Database is full, cannot add more students." << endl;
         }
@@ -119,9 +114,12 @@ public:
 
     // Function to display all students
     void displayAll() {
+        cout << "Rol  Name      Class  Div  DOB         "
+             << "BG  Address       TelePhone   License No" << endl
+             << string(79, '-') << endl;
+
         for (int i = 0; i < size; ++i) {
             students[i]->display();
-            cout << "-------------------------" << endl;
         }
     }
 
@@ -142,14 +140,11 @@ public:
 };
 
 int main() {
-    StudentDatabase db(10); // Create a database with capacity for 10 students
-    // (Name RollNumber Class Division DOB BloodGroup Address Telephone DL)
+    StudentDatabase db(10); 
 
-    // Omkar 74 15 A 2005/12/30 B+ 123-Patas-St 8485879999 DL12345
-    // Riddesh 73 15 A 2005/04/15 B+ 123-Maple-St 1234567890 DL12345
-    // Parth 66 15 C 2005/04/15 AB+ 123 Maple St 1234567890 DL12345
+    // (Name RollNumber Class Division DOB BloodGroup Address Telephone DL)
     cout << "Enter student details" << endl;
-    cout << "Enter student info (Name RollNumber Class Division DOB BloodGroup Address Telephone DL): \n";
+    cout << "Format (Name RollNo Class Division DOB BloodG Address Telephone DL): \n";
 
     while (true) {
         Student student;
@@ -165,14 +160,14 @@ int main() {
     }
     
     // Display all students
-    cout << "All Students:" << endl;
+    cout << "\nAll Students:" << endl;
     db.displayAll();
 
     // Count the number of students
-    cout << "Total Students: " << StudentDatabase::countStudents(db) << endl;
+    cout << "\nTotal Students: " << StudentDatabase::countStudents(db) << endl;
 
     // Find a student by roll number
-    cout << "Finding student with roll number 74: ";
+    cout << "\nFinding student with roll number 74: \n\n";
     Student* foundStudent = db.findStudentByRollNumber(74);
 
     if (foundStudent)
@@ -182,3 +177,9 @@ int main() {
 
     return 0;
 }
+
+
+// Omkar 74 CO_SE A 2005/12/30 B+ Padvi 8485879999 MH42-13345
+// Riddesh 73 CO_SE A 2005/10/20 AB+ Bhor 888500890 MH42-92345
+// Parth 66 CO_SE C 2005/04/15 B+ Chandrapur 9994567890 MH42-22345
+// Nihar 23 CO_FE A 2004/02/01 A+ Gujrat 8827374664 GJ23-98444
