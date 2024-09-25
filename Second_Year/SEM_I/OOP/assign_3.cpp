@@ -20,7 +20,7 @@ public:
     
     virtual void input() {
         cout << "Enter title: ";
-        getline(cin, title);
+        cin >> title;
         cout << "Enter price: ";
         cin >> price;
         if (price < 0) throw invalid_argument("Price cannot be negative.");
