@@ -90,14 +90,14 @@ string formatWithPadding(const string& str, int width) {
 
 void display() {
     cout << "\nItem Code   Name           Cost      Quantity  Item Category" << endl;
-    cout << string(60, '-') << endl;
+    cout << string(70, '-') << endl;
 
     for_each(Items.begin(), Items.end(), print);
 }
 
 void print(const ItemRecord &item) {
     cout << formatWithPadding(item.itemCode, 12)
-         << formatWithPadding(item.itemName, 15)
+         << formatWithPadding(item.itemName, 25)
          << formatWithPadding(to_string(item.cost), 10)
          << formatWithPadding(to_string(item.quantity), 10)
          << item.category << endl;

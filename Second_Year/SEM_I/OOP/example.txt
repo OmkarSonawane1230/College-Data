@@ -1,7 +1,3 @@
-Goodbye!
-Hello, World!
-This is a simple C++ file handling example.
-Goodbye!
 Hello, World!
 This is a simple C++ file handling example.
 Goodbye!
