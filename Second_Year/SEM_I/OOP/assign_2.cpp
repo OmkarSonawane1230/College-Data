@@ -1,9 +1,10 @@
 // ======================================================================
 // Name        : assign_2.cpp
 // Author      : Omkar Sonawane
-// Description : This program implements a Complex class for representing
-//               complex numbers, providing operations for addition, 
-//               multiplication, and input/output.
+// Description : This program implements constructors, destructor, static
+//               member functions, friend class, this pointer, inline 
+//               code and dynamic memory allocation operators-new and 
+//               delete as well as exception handling
 // ======================================================================
 
 #include <iostream>
@@ -52,12 +53,20 @@ public:
     }
 
     friend istream& operator>>(istream& in, Student& s) {
-        in >> s.name >> s.rollNumber >> s.className >> s.division >> s.dateOfBirth
-           >> s.bloodGroup >> ws; // ws to consume whitespace before reading the address
+        cout << "\nStudent details: ";
 
-        // Read the rest of the line for the address and other details
-        getline(in, s.contactAddress, '\n'); // Read until the end of the line
-        in >> s.telephoneNumber >> s.drivingLicenseNo;
+        // in >> s.name >> s.rollNumber >> s.className >> s.division >> s.dateOfBirth
+        //    >> s.bloodGroup >> ws; // ws to consume whitespace before reading the address
+
+        // // Read the rest of the line for the address and other details
+        // getline(in, s.contactAddress, '\n'); // Read until the end of the line
+        // in >> s.telephoneNumber >> s.drivingLicenseNo;
+
+        in >> ws; // Consume any leading whitespace
+        in >> s.name >> s.rollNumber >> s.className >> s.division
+           >> s.dateOfBirth >> s.bloodGroup >> s.contactAddress 
+           >> s.telephoneNumber >> s.drivingLicenseNo;
+
 
         return in;
     }
@@ -134,21 +143,27 @@ public:
 
 int main() {
     StudentDatabase db(10); // Create a database with capacity for 10 students
-
     // (Name RollNumber Class Division DOB BloodGroup Address Telephone DL)
 
-    // Omkar 74 15 A 2005-12-30 B+ 123 Patas St 8485879999 DL12345
-    // Riddesh 73 15 A 2005-04-15 B+ 123 Maple St 1234567890 DL12345
-    // Parth 66 15 C 2005-04-15 AB+ 123 Maple St 1234567890 DL12345
-    cout << "Enter student details for 2 students";
+    // Omkar 74 15 A 2005/12/30 B+ 123-Patas-St 8485879999 DL12345
+    // Riddesh 73 15 A 2005/04/15 B+ 123-Maple-St 1234567890 DL12345
+    // Parth 66 15 C 2005/04/15 AB+ 123 Maple St 1234567890 DL12345
+    cout << "Enter student details" << endl;
     cout << "Enter student info (Name RollNumber Class Division DOB BloodGroup Address Telephone DL): \n";
-    for (int i = 0; i < 2; ++i) {
 
-        Student s;
-        cin >> s;
-        db.addStudent(s);
+    while (true) {
+        Student student;
+        char choice;
+        cin >> student;
+        db.addStudent(student);
+
+        cout << "\nDo you want to add students (y/n): ";
+        cin >> choice;
+
+        if (choice == 'y' || choice == 'Y') continue;
+        else break;
     }
-
+    
     // Display all students
     cout << "All Students:" << endl;
     db.displayAll();
@@ -157,13 +172,13 @@ int main() {
     cout << "Total Students: " << StudentDatabase::countStudents(db) << endl;
 
     // Find a student by roll number
-    cout << "Finding student with roll number 101:" << endl;
-    Student* foundStudent = db.findStudentByRollNumber(101);
-    if (foundStudent) {
+    cout << "Finding student with roll number 74: ";
+    Student* foundStudent = db.findStudentByRollNumber(74);
+
+    if (foundStudent)
         foundStudent->display();
-    } else {
+    else
         cout << "Student not found." << endl;
-    }
 
     return 0;
 }
