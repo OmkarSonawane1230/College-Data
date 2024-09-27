@@ -89,7 +89,7 @@ string formatWithPadding(const string& str, int width) {
 }
 
 void display() {
-    cout << "\nItem Code   Name           Cost      Quantity  Item Category" << endl;
+    cout << "\nItem Code   Name                     Cost      Quantity  Item Category" << endl;
     cout << string(70, '-') << endl;
 
     for_each(Items.begin(), Items.end(), print);
