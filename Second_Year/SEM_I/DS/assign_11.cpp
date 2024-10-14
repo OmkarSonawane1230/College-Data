@@ -1,7 +1,7 @@
 // ======================================================================
 // Name        : assign_11.cpp
 // Author      : Omkar Sonawane
-// Description : This program implements Queue
+// Description : This program implements Queue using array
 // ======================================================================
 
 #include <iostream>

@@ -1,7 +1,7 @@
 // ======================================================================
 // Name        : assign_10.cpp
 // Author      : Omkar Sonawane
-// Description : This program implements Infix to postfix converstion 
+// Description : This program implements Infix to postfix conversion 
 //               using stack.
 // ======================================================================
 
