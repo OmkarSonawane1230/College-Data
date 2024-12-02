@@ -1,0 +1,14 @@
+In C++, file manipulation is very similar to C but often involves the 
+use of C++'s fstream library, which provides classes for handling files 
+more conveniently. Below is a breakdown of file pointer manipulation 
+functions, with examples, using C++'s ifstream, ofstream, and fstream 
+classes (which are part of the <fstream> library).
+
+
+Function    Description	                                    Example Use Case
+seekg()	    Move the input file pointer	                    Move to a specific byte for reading
+seekp()	    Move the output file pointer	                Move to a specific byte for writing
+tellg()	    Get the current position of the input pointer	Retrieve current read position
+tellp()	    Get the current position of the output pointer	Retrieve current write position
+eof()       Check if the end of the file has been reached	Detect when to stop reading
+close()     Close the file	                                Close an open file
