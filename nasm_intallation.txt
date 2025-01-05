@@ -1,0 +1,28 @@
+# check for the presence of nasm in system
+whereis nasm
+
+# install the zip build file for installation
+wget https://www.nasm.us/pub/nasm/releasebuilds/2.16.03/nasm-2.16.03.tar.gz
+
+# unzip the file
+tar -xvzf nasm-2.16.03.tar.gz
+
+# go to the unzip file
+cd nasm-2.16.03
+
+# check if nasm is compatiable with all the resource in system
+./configure
+
+# create a make build file
+make
+
+# finally install the nasm to the system
+sudo make install
+
+#for reference -: https://www.youtube.com/watch?v=Cr4QY89TQb4
+
+# Commands to execute the assembly program
+
+$ nasm -f elf64 first.asm
+$ ld -s -o first first.o
+$ ./abc
