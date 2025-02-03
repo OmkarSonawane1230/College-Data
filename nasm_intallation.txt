@@ -25,4 +25,8 @@ sudo make install
 
 $ nasm -f elf64 first.asm
 $ ld -s -o first first.o
-$ ./abc
+$ ./first
+
+# or you can put the below line in "code-runner.executorMapByFileExtension"
+
+|| ".asm": "cd $dir && nasm -f elf64 $fileName && ld -s -o $fileNameWithoutExt $fileNameWithoutExt.o && ./$fileNameWithoutExt" ||
